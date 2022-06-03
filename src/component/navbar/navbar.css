@@ -1,0 +1,17 @@
+.navbar-container{
+    display: flex;
+    align-items: center;
+    background-color: red;
+    height: 6rem;
+    width: 100%;
+}
+.login-link{
+    margin-left: auto;
+    margin-right: 2rem;
+    font-size: 1.5rem;
+}
+.navbar-title{
+    font-size: 1.7rem;
+    font-weight: 700;
+    margin-left: 2rem;
+}

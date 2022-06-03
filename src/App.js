@@ -1,9 +1,10 @@
 import React from 'react'
+import { Navbar } from './component'
 
 export const App = () => {
   return (
     <>
-   <h1>app</h1>
+   <Navbar/>
     </>
   )
 }
