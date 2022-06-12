@@ -1,0 +1,23 @@
+.sidebaar-icon{
+    display: flex;
+}
+.sidebaar-container{
+    height: 100vh;
+    width: 12rem;
+}
+.sidebaar-icon{
+    height: 3rem;
+    width: 100%;
+    background-color: #9efa96;
+    margin: 12px;
+    align-items: center;
+    padding: 10px;
+    font-size: 1.2rem;
+    font-weight: 700;
+    border-radius: 5px;
+    gap: 10px;
+}
+.sidebar-title, .icon{
+    
+    background-color: #9efa96;
+}

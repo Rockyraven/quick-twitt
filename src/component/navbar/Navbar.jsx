@@ -5,9 +5,12 @@ import './navbar.css'
 export const Navbar = () => {
   return (
     <div className='navbar-container'>
+        <Link to='/'>
         <p className='navbar-title'>QuickTwitt</p>
+        </Link>
         <div className='login-link'>
-            <a href="/"> Explore More</a>
+          <Link to='/'> Explore more
+          </Link>
         </div>
         </div>
   )
