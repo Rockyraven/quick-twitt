@@ -1,7 +1,7 @@
 .navbar-container{
     display: flex;
     align-items: center;
-    background-color: red;
+    background-color: #d2fdce;
     height: 6rem;
     width: 100%;
 }
