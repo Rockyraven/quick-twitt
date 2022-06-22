@@ -14,7 +14,7 @@ const navigate = useNavigate()
 
 useEffect(()=>{
   if(isAuthenticated){
-    navigate('/home')
+    navigate('/')
     toast.success("LoggedIn successFully")
   }
   if(error){
@@ -47,7 +47,7 @@ const loginHandler = (username, password) => {
           onInput={(e) => setUsername(e.target.value)}
         />
         <input
-          type="text"
+          type="password"
           label="password"
           value={password}
           id="outlined-password-input"

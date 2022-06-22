@@ -1,0 +1,12 @@
+.logout-section{
+    height: 10rem;
+    width: 18rem;
+    border: 1px solid var(--icon-color);
+    background-color: var(--clr-border-color-3);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5px;
+    line-height: 2rem;
+}
