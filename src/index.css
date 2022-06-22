@@ -6,7 +6,7 @@ body {
   margin: 0px;
   padding: 0px;
   text-decoration: none;
-  background-color: #f5fdfb;
+  background-color: var(--clr-page-bg);
   box-sizing: border-box;
   text-decoration: none;
   --clr-page-bg: #222;
