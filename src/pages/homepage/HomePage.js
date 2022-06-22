@@ -8,10 +8,7 @@ export const HomePage = () => {
     <div className="homepage-container">
     <Sidebaar/>
     <div className="post-conatiner">
-    <div className='search-bar'>
-        <input type="text" className='search-input'/>
-        <button className='search-button'>Search</button>
-    </div>
+    
     </div>
     <div className='search-bar'>
         <input type="text" className='search-input'/>

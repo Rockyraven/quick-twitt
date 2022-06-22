@@ -9,7 +9,7 @@ export const Navbar = () => {
         <p className='navbar-title'>QuickTwitt</p>
         </Link>
         <div className='login-link'>
-          <Link to='/'> Explore more
+          <Link to='/login'>Login
           </Link>
         </div>
         </div>
