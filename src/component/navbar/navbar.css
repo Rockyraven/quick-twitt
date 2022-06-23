@@ -9,9 +9,17 @@
     margin-left: auto;
     margin-right: 2rem;
     font-size: 1.5rem;
+    background-color: var(--nav-background);
+    /* color: red; */
 }
 .navbar-title{
     font-size: 1.7rem;
     font-weight: 700;
     margin-left: 2rem;
+    background-color: var(--nav-background);
+}
+
+.symbol{
+    background-color: var(--nav-background);
+
 }
