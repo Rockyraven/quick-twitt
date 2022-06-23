@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { clearError, login } from "../../redux/slices/authSlice";
 import './loginPage.css'
-import {useNavigate} from 'react-router-dom'
+import {Link, useNavigate} from 'react-router-dom'
 import {toast} from 'react-toastify'
 
 export const LoginPage = () => {
@@ -71,6 +71,7 @@ const loginHandler = (username, password) => {
         >
           Login
         </button>
+        <span>Don't have an account?</span><Link to='/signup' >Create Account </Link>
       </div>
     </div>
     </>
