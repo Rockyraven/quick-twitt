@@ -1,12 +1,12 @@
 .post-conatiner{
-    height: 100vh;
+    height: 32rem;
     width: 45rem;
     background-color: 9efa96;
 
 }
 .homepage-container{
     display: flex;
-    justify-content: space-around;
+    /* justify-content: space-around; */
 }
 .search-input{
     height: 1.5rem;
@@ -17,4 +17,21 @@
 }
 .search-button{
     padding: 9px;
+}
+.create-post{
+    height: 10rem;
+    width: 45rem;
+    border: 1px solid gray;
+}
+.create-post img{
+    margin: 1rem;
+    border-radius: 50%;
+}
+.input-box input{
+    width: 270%;
+    padding: 10px;
+    height: 3rem;
+    border: 1px solid grey;
+    margin-top: 2rem;
+    border-radius: 5px;
 }

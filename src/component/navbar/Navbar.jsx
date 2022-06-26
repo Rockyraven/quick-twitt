@@ -9,14 +9,21 @@ export const Navbar = () => {
   const { isAuthenticated } = useSelector(state => state.auth)
   return (
     <div className='navbar-container'>
-        <Link to='/' className='navbar-title'>QuickTwitt
+        <Link to='/' className='navbar-title'>
+        <img
+            className="title h-6 w-auto"
+            src="https://tailwindui.com/img/logos/workflow-mark-indigo-600.svg"
+            alt="Workflow"
+          /> <p>QuickTwitt</p>
+          
         </Link>
         <div className='login-link'>
         {isAuthenticated? <Link to="/profile" className="login">
-          <PersonIcon className='symbol'/>
+          <PersonIcon className='symbol' sx={{fontSize: 30}}/>
           </Link> : <Link to="/login" className="login">
-            <LoginIcon className='symbol'/>
-          </Link>}
+            <LoginIcon className='symbol' sx={{fontSize: 30}}/>
+          </Link>
+          }
         </div>
         </div>
   )

@@ -1,4 +1,5 @@
 import { v4 as uuid } from "uuid";
+import { profile } from "../../assets";
 import { formatDate } from "../utils/authUtils";
 /**
  * User Database can be added here.
@@ -8,12 +9,14 @@ import { formatDate } from "../utils/authUtils";
 export const users = [
   {
     _id: uuid(),
-    firstName: "Adarsh",
-    lastName: "Balika",
-    username: "adarshbalika",
+    firstName: "Rocky",
+    lastName: "Kumar",
+    username: "rockyraven#5213",
+    userphoto: profile,
     password: "adarshBalika123",
     email: "adarshbalika@gmail.com",
     createdAt: formatDate(),
     updatedAt: formatDate(),
+    bio: `Learning web Development at @neogCamp`
   },
 ];

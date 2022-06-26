@@ -5,6 +5,7 @@ import { toast } from "react-toastify";
 export const login = createAsyncThunk("auth/login", async (userData) => {
   const userDetail = JSON.stringify(userData);
   const { data } = await axios.post("/api/auth/login", userDetail);
+  // console.log(data)
   return data;
 });
 export const signUp = createAsyncThunk("auth/signup", async (userData) => {
@@ -12,6 +13,7 @@ export const signUp = createAsyncThunk("auth/signup", async (userData) => {
   const { data } = await axios.post("/api/auth/signup", userDetail);
   return data;
 });
+// console.log(encodedToken)
 export const authSlice = createSlice({
   name: "auth",
   initialState: {
@@ -27,7 +29,6 @@ export const authSlice = createSlice({
         state.error = null
     },
     setError: (state, action)=>{
-        console.log(action.payload)
         state.error = action.payload
     },
     logout: (state) => {
