@@ -5,7 +5,6 @@ import { toast } from "react-toastify";
 export const login = createAsyncThunk("auth/login", async (userData) => {
   const userDetail = JSON.stringify(userData);
   const { data } = await axios.post("/api/auth/login", userDetail);
-  // console.log(data)
   return data;
 });
 export const signUp = createAsyncThunk("auth/signup", async (userData) => {
@@ -13,15 +12,18 @@ export const signUp = createAsyncThunk("auth/signup", async (userData) => {
   const { data } = await axios.post("/api/auth/signup", userDetail);
   return data;
 });
-// console.log(encodedToken)
 export const authSlice = createSlice({
   name: "auth",
   initialState: {
     isAuthenticated: false,
-    user: null,
     loading: false,
     error: null,
-    encodedToken: null,
+    user: localStorage.getItem("user")
+    ? JSON.parse(localStorage.getItem("user"))
+    : null,
+    encodedToken: localStorage.getItem("encodedToken")
+    ? JSON.parse(localStorage.getItem("encodedToken"))
+    : null,
   },
   reducers: {
     clearError: (state)=>{
@@ -55,6 +57,8 @@ export const authSlice = createSlice({
       state.loading = false;
       state.error = null;
       state.encodedToken = action.payload.encodedToken;
+      localStorage.setItem('user', JSON.stringify(action.payload.foundUser))
+      localStorage.setItem('encodedToken', JSON.stringify(action.payload.encodedToken))
     }, 
     [login.rejected]: (state, action) => {
       state.isAuthenticated = false;

@@ -1,6 +1,6 @@
 import { v4 as uuid } from "uuid";
-import { profile } from "../../assets";
 import { formatDate } from "../utils/authUtils";
+import {profile} from '../../assets'
 /**
  * User Database can be added here.
  * You can add default users of your wish with different attributes
