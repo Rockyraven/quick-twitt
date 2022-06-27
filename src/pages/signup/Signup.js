@@ -15,8 +15,8 @@ export const Signup = () => {
 
   const [dataForm, setDataForm] = useState({
     username: "",
-    firstname: "",
-    lastname: "",
+    firstName: "",
+    lastName: "",
     password1: "",
     password2: "",
   });
@@ -33,8 +33,8 @@ export const Signup = () => {
 
   const validateData = () => {
     if (
-      dataForm.firstname === "" ||
-      dataForm.lastname === "" ||
+      dataForm.firstName === "" ||
+      dataForm.lastName === "" ||
       dataForm.username === "" ||
       dataForm.password1.length < 6
     ) {
@@ -73,14 +73,14 @@ export const Signup = () => {
             <div>
               <input
                 type="text"
-                value={dataForm.firstname}
+                value={dataForm.firstName}
                 autoComplete="current-password"
                 placeholder="First Name"
                 className="mt-2 appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
                 onInput={(e) =>
                   setDataForm((prev) => ({
                     ...prev,
-                    firstname: e.target.value,
+                    firstName: e.target.value,
                   }))
                 }
               />
@@ -88,14 +88,14 @@ export const Signup = () => {
             <div>
               <input
                 type="text"
-                value={dataForm.lastname}
+                value={dataForm.lastName}
                 autoComplete="current-password"
                 placeholder="Last Name"
                 className=" appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
                 onInput={(e) =>
                   setDataForm((prev) => ({
                     ...prev,
-                    lastname: e.target.value,
+                    lastName: e.target.value,
                   }))
                 }
               />

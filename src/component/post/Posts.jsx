@@ -13,8 +13,8 @@ export const Posts = ({
   content = "",
   comments = [],
   username = "",
-  firstname = "",
-  lastname = "",
+  firstName = "",
+  lastName = "",
   userphoto = "",
   _id,
 }) => {
@@ -23,7 +23,7 @@ export const Posts = ({
       <div className=" post flex pl-3">
         <img src={userphoto} alt="userphoto" />
         <p className="text-lg font-semibold">
-          {firstname} {lastname}
+          {firstName} {lastName}
         </p>
         <p className="text-sm text-gray-500 mt-1">{username}</p>
         <MoreVertOutlinedIcon className="ml-auto" />

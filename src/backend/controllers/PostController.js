@@ -82,8 +82,8 @@ export const createPostHandler = function (schema, request) {
       _id: uuid(),
       content: postData,
       userphoto: user.userphoto,
-      firstname: user.firstname,
-      lastname: user.lastname,
+      firstName: user.firstName,
+      lastName: user.lastName,
       likes: {
         likeCount: 0,
         likedBy: [],

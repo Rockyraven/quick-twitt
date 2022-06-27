@@ -36,8 +36,8 @@ export const HomePage = () => {
           {updatePost?.map((item) => (
             <Posts
               key={item._id}
-              firstname={item.firstname}
-              lastname={item.lastname}
+              firstName={item.firstName}
+              lastName={item.lastName}
               username={item.username}
               userphoto={item.userphoto}
               content={item.content}

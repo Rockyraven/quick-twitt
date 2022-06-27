@@ -5,19 +5,20 @@ import InsertPhotoOutlinedIcon from "@mui/icons-material/InsertPhotoOutlined";
 import { profile } from "../../assets";
 import { createPost } from '../../redux/slices/postSlice';
 import { useDispatch, useSelector } from 'react-redux';
+import { toast } from "react-toastify";
 
 export const CreatePost = () => {
 
     const [ text, setText ] = useState("")
     const { encodedToken } = useSelector((state) => state.auth);
     const dispatch = useDispatch();
-    
+
     const postHandler = () => {
         if (encodedToken) {
             dispatch(createPost({ encodedToken, text }));
           setText("");
+            toast.success("Post created successfully");
         } else {
-        //   toast.warning("You must be Signed in to add a post.");
         console.log("not happend")
         }
       };
