@@ -8,7 +8,7 @@
 .sidebaar-icon{
     height: 3rem;
     width: 100%;
-    background-color: #9efa96;
+    background-color: var(--main-color);
     margin: 12px;
     align-items: center;
     padding: 10px;
@@ -16,8 +16,45 @@
     font-weight: 700;
     border-radius: 5px;
     gap: 10px;
+    color: var(--white);
 }
 .sidebar-title, .icon{
     
-    background-color: #9efa96;
+    background-color: var(--main-color);;
+}
+@media only screen and (max-width: 750px) {
+    .sidebar-container{
+        width: 4rem;
+    }
+    .sidebar-symbol{
+        display: none;
+    }
+}
+.sidebar-icon{
+    display: block;
+}
+@media only screen and (max-width: 450px){
+    .search-bar{
+        display: none;
+        justify-content: center;
+        display: flex;
+        align-items: center;
+    }
+    .sidebaar-icon, .icon{
+        background-color: transparent;
+        /* background-color: red; */
+    }
+    
+    .wrapper{
+        height: 4rem;
+        width: 100%;
+        position: fixed;
+        bottom: 0;
+        display: flex;
+        width: 100%;
+        justify-content: space-between;
+        padding: 0;
+        margin: 0;
+        background-color: var(--main-color);
+    }
 }

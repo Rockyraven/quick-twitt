@@ -1,12 +1,21 @@
-.logout-section{
+.post-conatiner{
+    background-color: var(--card-background);
+}
+.img{
+    height: 14rem;
+}
+.profile-img img{
     height: 10rem;
-    width: 18rem;
-    border: 1px solid var(--icon-color);
-    background-color: var(--clr-border-color-3);
-    display: flex;
-    flex-direction: column;
+    width: 10rem;
+    border-radius: 50%;
+    border: 5px solid;
+}
+.profile-img{
     justify-content: center;
+    margin-top: -7rem ;
+    margin-left: 2rem;
     align-items: center;
-    border-radius: 5px;
-    line-height: 2rem;
+}
+.profile-detail{
+    display: flex;
 }

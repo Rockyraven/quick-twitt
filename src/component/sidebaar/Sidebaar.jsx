@@ -8,31 +8,33 @@ import "./sidebaar.css";
 
 export const Sidebaar = () => {
   return (
-    <div className="sidebaar-container">
+    <div className="sidebaar-wrapper">
+    <div className="sidebar-container wrapper">
       <Link to="/home">
         <div className="sidebaar-icon">
           <HomeIcon sx={{fontSize: 30}} className='icon' />
-          <p className="sidebar-title">Home</p>
+          <p className="sidebar-symbol">Home</p>
         </div>
       </Link>
-      <Link to="/">
+      <Link to="/explore">
         <div className="sidebaar-icon">
           <ExploreIcon sx={{fontSize: 30}} className='icon'/>
-          <p className="sidebar-title">Explore</p>
+          <p className="sidebar-symbol">Explore</p>
         </div>
       </Link>
-      <Link to="/">
+      <Link to="/bookmark">
         <div className="sidebaar-icon">
           <BookmarkBorderIcon sx={{fontSize: 30}} className='icon'/>
-          <p className="sidebar-title">BookMark</p>
+          <p className="sidebar-symbol">BookMark</p>
         </div>
       </Link>
-      <Link to="/">
+      <Link to="/profile">
         <div className="sidebaar-icon">
           <PersonIcon sx={{fontSize: 30}} className='icon'/>
-          <p className="sidebar-title">Profile</p>
+          <p className="sidebar-symbol">Profile</p>
         </div>
       </Link>
+    </div>
     </div>
   );
 };

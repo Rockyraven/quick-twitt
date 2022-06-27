@@ -1,0 +1,15 @@
+.fetch-post{
+    width: 45rem;
+    border: 1px solid;
+}
+.post img{
+    height: 3rem;
+    width: 3rem;
+    border-radius: 50%;
+}
+.post{
+    height: 5rem;
+    width: 100%;
+    align-items: center;
+    gap: 0.7rem;
+}
