@@ -25,6 +25,30 @@ export const createPost = createAsyncThunk("/post/create", async (data, thunkAPI
       thunkAPI.rejectWithValue(error);
     }
   });
+
+  export const deletePost = createAsyncThunk(
+    "/post/delete",
+    async (data, thunkAPI) => {
+      try {
+
+        const { token, postId } = data;
+        const res = await axios.delete(
+          `/api/posts/${postId}`,
+         
+          {
+            headers: {
+              authorization: token,
+            },
+          }
+        );
+          console.log(res.data)
+        return res.data.posts;
+    } catch (error) {
+        thunkAPI.rejectWithValue(error);
+    }
+}
+);
+
   
   
 export const postSlice = createSlice({
@@ -66,6 +90,24 @@ export const postSlice = createSlice({
         state.error = action.error;
         state.posts = null;
     },
+    [deletePost.pending]: (state) => {
+      state.loading = true;
+      state.posts = null;
+      state.error = null;
+    },
+    [deletePost.fulfilled]: (state, action) => {
+      state.loading = false;
+      console.log(action.payload)
+      console.log("working..")
+      state.posts = action.payload;
+      state.error = null;
+    },
+    [deletePost.rejected]: (state, action) => {
+      state.loading = true;
+      state.error = action.error;
+      state.posts = null;
+    }
+
   },
 });
 // export const { } = postSlice.actions

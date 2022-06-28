@@ -29,7 +29,7 @@ export const Signup = () => {
       toast.error(error.message);
     }
     dispatch(setError());
-  }, [isAuthenticated, error, dispatch]);
+  }, [isAuthenticated, error, dispatch, navigate]);
 
   const validateData = () => {
     if (

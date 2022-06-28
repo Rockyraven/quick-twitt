@@ -10,7 +10,7 @@ export const Sidebaar = () => {
   return (
     <div className="sidebaar-wrapper">
     <div className="sidebar-container wrapper">
-      <Link to="/home">
+      <Link to="/">
         <div className="sidebaar-icon">
           <HomeIcon sx={{fontSize: 30}} className='icon' />
           <p className="sidebar-symbol">Home</p>
