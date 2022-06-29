@@ -3,7 +3,6 @@ import { CreatePost, Posts, Sidebaar } from "../../component";
 import "./homepage.css";
 import { useDispatch, useSelector } from "react-redux";
 import { createPost, fetchPost } from "../../redux/slices/postSlice";
-import { fetchBookmark } from "../../redux/slices/bookmarkSlice";
 
 export const HomePage = () => {
   const { posts, loading, error } = useSelector((state) => state.post);
@@ -15,12 +14,12 @@ export const HomePage = () => {
     dispatch(createPost());
   }, []);
 
-  // useEffect(() => {
-  //   if(posts) {
-  //     setUpdatedPost(posts)
-  //   }
+  useEffect(() => {
+    if(posts) {
+      setUpdatedPost(posts)
+    }
 
-  // },[posts])
+  },[posts])
 
   return (
     <>
@@ -29,7 +28,7 @@ export const HomePage = () => {
         <div>
         <CreatePost/>
           <h1 className="ml-20 flex mt-3">Your Posts</h1>
-          {posts?.map((item) => (
+          {updatePost?.map((item) => (
             <Posts
               key={item._id}
               firstName={item.firstName}

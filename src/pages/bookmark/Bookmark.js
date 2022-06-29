@@ -5,11 +5,7 @@ import { Posts, Sidebaar } from '../../component';
 
 export const Bookmark = () => {
     const {bookmarks} = useSelector((state) => state.bookmark);
-    const [ bookMarkPosts, setBookMarkPosts ] = useState(bookmarks)
-    // useEffect(() => {
 
-    // },[bookmarks])
-    console.log(bookMarkPosts)
   return (
     <div className="homepage-container">
     <Sidebaar />

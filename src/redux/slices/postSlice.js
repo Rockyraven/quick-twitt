@@ -41,7 +41,6 @@ export const createPost = createAsyncThunk("/post/create", async (data, thunkAPI
             },
           }
         );
-          console.log(res.data)
         return res.data.posts;
     } catch (error) {
         thunkAPI.rejectWithValue(error);
@@ -97,8 +96,6 @@ export const postSlice = createSlice({
     },
     [deletePost.fulfilled]: (state, action) => {
       state.loading = false;
-      console.log(action.payload)
-      console.log("working..")
       state.posts = action.payload;
       state.error = null;
     },
@@ -110,5 +107,4 @@ export const postSlice = createSlice({
 
   },
 });
-// export const { } = postSlice.actions
 export default postSlice.reducer;

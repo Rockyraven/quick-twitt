@@ -2,17 +2,7 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import { toast } from "react-toastify";
 
-// export const moveToBookmark = createAsyncThunk("")
-// export const fetchBookmark = createAsyncThunk("post/fetchBookmark", async ({token}) => {
-//     const res = await axios.get("/api/users/bookmark", {
-//         headers: {
-//           authorization: token,
-//         },
-//       });
-//       console.log(res)
-//       console.log("working")
-//     return res;
-//   });
+
 export const fetchBookmark = createAsyncThunk(
   "bookmark/fetch",
   async (data, thunkAPI) => {
@@ -65,7 +55,6 @@ export const deleteBookmarkPost = createAsyncThunk(
           },
         }
       );
-      console.log(res.data);
       return res.data.bookmarks;
     } catch (error) {
       thunkAPI.rejectWithValue(error);

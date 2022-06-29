@@ -27,14 +27,12 @@ export const Posts = ({
   const dispatch = useDispatch();
   const { bookmarks } = useSelector((state) => state.bookmark);
   const [ isbookmark, setIsBookmark ] = useState(false);
+  const [ editModalOn, setEditModalOn ] = useState(false);
 
-  // useEffect(() => {
-  //   setIsBookmark(bookmarks.bookmarks.find(id => id === _id))
-  // },[bookmarks])
+
 
   const addToBookmarkHandler = () => {
     dispatch(addToBookmark({ token: encodedToken, postId: _id }));
-    setIsBookmark(isbookmark ? true: false)
   };
   const deleteBookmarkHandler = () => {
     dispatch(deleteBookmarkPost({ token: encodedToken, postId: _id }));
@@ -71,11 +69,19 @@ export const Posts = ({
       <div className="post-content">{content}</div>
       <div className="gap-2 flex ml-2 mt-3">
         <FavoriteBorderIcon onClick={deleteBookmarkHandler}/>
-       
+        {!isbookmark && 
         <BookmarkBorderOutlinedIcon
-          className="pointer-cursor"
+          className="cursor"
           onClick={addToBookmarkHandler}
-        />
+        /> }
+        {isbookmark && <BookmarkOutlinedIcon onClick={() => console.log("clcik..")}/> }
+        <button
+              className="hover:opacity-75 disabled:cursor-not-allowed disabled:opacity-50"
+              onClick={() => setEditModalOn(!editModalOn)}
+              // disabled={user.username !== username}
+            >
+              <EditOutlinedIcon />
+            </button>
         <EditOutlinedIcon />
       </div>
       <div className="post flex  mt-5">
