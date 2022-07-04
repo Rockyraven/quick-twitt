@@ -3,3 +3,5 @@ export { Sidebaar } from "./sidebaar/Sidebaar";
 export { Posts } from "./post/Posts";
 export { CreatePost } from "./createpost/CreatePost";
 export { Comment } from "./comment/Comment";
+export { Loader } from "./loader/Loader";
+// export { EditModal } from "./modal/EditModal";

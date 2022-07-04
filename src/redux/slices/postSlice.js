@@ -25,12 +25,91 @@ export const createPost = createAsyncThunk("/post/create", async (data, thunkAPI
       thunkAPI.rejectWithValue(error);
     }
   });
-  
+  export const likePost = createAsyncThunk("/post/like", async (data, thunkAPI) => {
+    try {
+      const { postId, token } = data;
+      const res = await axios.post(
+        `/api/posts/like/${postId}`,
+        {},
+        {
+          headers: {
+            authorization: token,
+          },
+        }
+        );
+        console.log(res.data.posts.map(item => item.likes.likedBy));
+        return res.data;
+      } catch (error) {
+        thunkAPI.rejectWithValue(error);
+      }
+    });
+    export const disLikePost = createAsyncThunk("/post/like", async (data, thunkAPI) => {
+      try {
+        const { postId, token } = data;
+        const res = await axios.post(
+          `/api/posts/dislike/${postId}`,
+          {},
+          {
+            headers: {
+              authorization: token,
+            },
+          }
+          );
+          console.log(res.data.posts.map(item => item.likes.likedBy));
+          return res.data;
+        } catch (error) {
+          thunkAPI.rejectWithValue(error);
+        }
+      });
+      
+      export const editPost = createAsyncThunk("/post/edit", async (data, thunkAPI) => {
+          try {
+            const { token, text, postId } = data;
+            console.log(postId)
+            console.log(token)
+            const postData = JSON.stringify(text)
+            const res = await axios.post(
+              `/api/posts/edit/${postId}`,
+              { postData: text },
+              {
+                headers: {
+                  authorization: token,
+                },
+              }
+            );
+            console.log(res.data)
+            return res.data;
+          } catch (error) {
+            thunkAPI.rejectWithValue(error);
+          }
+        });
+
+  export const deletePost = createAsyncThunk(
+    "/post/delete",
+    async (data, thunkAPI) => {
+      try {
+        const { token, postId } = data;
+        const res = await axios.delete(
+          `/api/posts/${postId}`,
+         
+          {
+            headers: {
+              authorization: token,
+            },
+          }
+        );
+        return res.data.posts;
+    } catch (error) {
+        thunkAPI.rejectWithValue(error);
+    }
+}
+); 
   
 export const postSlice = createSlice({
   name: "post",
   initialState: {
     posts: [],
+    likePosts:[],
     loading: false,
     error: null,
   },
@@ -66,7 +145,73 @@ export const postSlice = createSlice({
         state.error = action.error;
         state.posts = null;
     },
+    [editPost.pending]: (state) => {
+      state.loading = true;
+      state.error = null;
+      state.posts = null;
+    },
+    [editPost.fulfilled]: (state, action) => {
+        state.loading = false;
+        state.error = null;
+        console.log(action.payload)
+        state.posts = action.payload
+    },
+    [editPost.rejected]: (state, action) => {
+        state.loading = true;
+        state.error = action.error;
+        state.posts = null;
+    },
+    [deletePost.pending]: (state) => {
+      state.loading = true;
+      state.posts = null;
+      state.error = null;
+    },
+    [deletePost.fulfilled]: (state, action) => {
+      state.loading = false;
+      console.log(action.payload);
+      state.posts = action.payload;
+      state.error = null;
+    },
+    [deletePost.rejected]: (state, action) => {
+      state.loading = true;
+      state.error = action.error;
+      state.posts = null;
+    },
+    [likePost.pending]: (state) => {
+      state.loading = true;
+      state.likePosts = null;
+      state.error = null;
+    },
+    [likePost.fulfilled]: (state, action) => {
+      state.loading = false;
+      state.likePosts = action.payload;
+      console.log(state.payload);
+      state.posts = action.payload;
+      state.error = null;
+    },
+    [likePost.rejected]: (state, action) => {
+      state.loading = true;
+      state.error = action.error;
+      state.likePosts = null;
+    },
+    [disLikePost.pending]: (state) => {
+      state.loading = true;
+      state.likePosts = null;
+      state.error = null;
+    },
+    [disLikePost.fulfilled]: (state, action) => {
+      state.loading = false;
+      state.likePosts = action.payload;
+      console.log(state.payload);
+      state.posts = action.payload;
+      state.error = null;
+    },
+    [disLikePost.rejected]: (state, action) => {
+      state.loading = true;
+      state.error = action.error;
+      state.likePosts = null;
+    }
+
   },
 });
-// export const { } = postSlice.actions
 export default postSlice.reducer;

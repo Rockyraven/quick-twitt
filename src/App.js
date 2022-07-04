@@ -1,7 +1,7 @@
 import React from "react";
 import { Route, Routes } from "react-router-dom";
 import { Navbar } from "./component";
-import { HomePage, LoginPage, Profile, Signup } from "./pages";
+import { Bookmark, HomePage, LoginPage, Profile, Signup } from "./pages";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "./App.css";
@@ -29,6 +29,7 @@ export const App = () => {
         <Route element={<ProtectedRoute />}>
           <Route path="/" element={<HomePage />} />
           <Route path="/profile" element={<Profile />} />
+          <Route path="/bookmark" element={<Bookmark/>} />
         </Route>
       </Routes>
     </>
