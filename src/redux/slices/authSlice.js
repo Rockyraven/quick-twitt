@@ -7,10 +7,27 @@ export const login = createAsyncThunk("auth/login", async (userData) => {
   const { data } = await axios.post("/api/auth/login", userDetail);
   return data;
 });
-export const signUp = createAsyncThunk("auth/signup", async (userData) => {
-  const userDetail = JSON.stringify(userData);
-  const { data } = await axios.post("/api/auth/signup", userDetail);
-  return data;
+
+export const signUp = createAsyncThunk("auth/signup", async (data, thunkAPI) => {
+  try {
+   const { firstName, lastName, userName, userphoto, password1 } = data
+   console.log(userName)
+    const res = await axios.post(
+      `/api/auth/signup`,
+      {
+        username: userName,
+        firstName: firstName,
+        lastName: lastName,
+        userphoto: userphoto,
+        password1: password1
+      },
+     
+    );
+    console.log(res.data.createdUser);
+    return res.data;
+  } catch (error) {
+    thunkAPI.rejectWithValue(error);
+  }
 });
 export const authSlice = createSlice({
   name: "auth",
@@ -38,6 +55,8 @@ export const authSlice = createSlice({
       state.user = null;
       state.loading = true;
       state.encodedToken = null;
+      localStorage.removeItem('user')
+      localStorage.removeItem('encodedToken')
       toast.success("Logged out successfully");
     },
     
@@ -76,15 +95,18 @@ export const authSlice = createSlice({
     },
     [signUp.fulfilled]: (state, action) => {
       state.isAuthenticated = true;
-      state.user = action.payload.foundUser;
+      state.user = action.payload.createdUser;
       state.loading = false;
       state.error = null;
       state.encodedToken = action.payload.encodedToken;
+      localStorage.setItem('user', JSON.stringify(action.payload.createdUser))
+      localStorage.setItem('encodedToken', JSON.stringify(action.payload.encodedToken))
     }, 
     [signUp.rejected]: (state, action) => {
       state.isAuthenticated = false;
       state.user = null;
       state.loading = true;
+      console.log(action)
       state.error = action.error;
       state.encodedToken = null;
     },

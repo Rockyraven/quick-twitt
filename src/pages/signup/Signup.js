@@ -4,14 +4,21 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { setError, signUp } from "../../redux/slices/authSlice";
 import { toast } from "react-toastify";
+import { Loader } from "../../component";
 
 export const Signup = () => {
   const { loading, error, isAuthenticated } = useSelector(
     (state) => state.auth
   );
+  const [ postError, setPostError ] = useState(error);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  console.log(error)
+
+  useEffect(() => {
+    setPostError(error)
+  },[])
 
   const [dataForm, setDataForm] = useState({
     username: "",
@@ -44,8 +51,7 @@ export const Signup = () => {
 
     return true;
   };
-  const signupHandler = (e) => {
-    e.preventDefault();
+  const signupHandler = () => {
     if (validateData()) {
       console.log("Workin..");
       dispatch(signUp(dataForm));
@@ -53,6 +59,8 @@ export const Signup = () => {
     }
   };
   return (
+    <>
+    {loading ? <Loader/> : 
     <div className="min-h-full flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-md w-full space-y-8">
         <div>
@@ -64,9 +72,10 @@ export const Signup = () => {
           <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
             Sign up to your account
           </h2>
-          {error}
+         
           <p className="mt-2 text-center text-sm text-gray-600">Or </p>
         </div>
+        <h1>{postError}</h1>
         <form className="mt-8 space-y-6" action="#" method="POST">
           <input type="hidden" name="remember" defaultValue="true" />
           <div className="rounded-md shadow-sm -space-y-px">
@@ -165,5 +174,7 @@ export const Signup = () => {
         </form>
       </div>
     </div>
+}
+    </>
   );
 };
