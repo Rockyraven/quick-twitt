@@ -30,8 +30,6 @@ export const Posts = ({
   const { encodedToken, user } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
   const { bookmarks } = useSelector((state) => state.bookmark);
-  const [isbookmark, setIsBookmark] = useState(false);
-  const [editModalOn, setEditModalOn] = useState(false);
 
   const addToBookmarkHandler = () => {
     dispatch(addToBookmark({ token: encodedToken, postId: _id }));
@@ -83,7 +81,7 @@ export const Posts = ({
       </div>
       <div className="post-content">{content}</div>
       <div className="gap-2 flex ml-2 mt-3">
-        <FavoriteBorderIcon  />
+        <FavoriteBorderIcon  onClick={likeHandler}/>
 
         <BookmarkBorderOutlinedIcon onClick={addToBookmarkHandler} />
         <button

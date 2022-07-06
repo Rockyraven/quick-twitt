@@ -11,20 +11,31 @@ export const Profile = () => {
   const { user } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { posts, loading, error } = useSelector((state) => state.post);
-  const [updatePost, setUpdatedPost] = useState(null);
+  const { posts, loading, error, likePosts } = useSelector((state) => state.post);
+  const [updatePost, setUpdatedPost] = useState(posts);
   useEffect(() => {
     dispatch(fetchPost());
   }, []);
 
-  useEffect(() => {
-    setUpdatedPost(posts);
-  }, [posts]);
+  // useEffect(() => {
+  //   setUpdatedPost(posts);
+  // }, [posts]);
+  const postHandler = () => {
+
+  }
 
   const logoutHandler = () => {
     dispatch(logout());
     navigate("/");
   };
+
+
+  const [ like, setLike ] = useState([]);
+  const postLikeHandler = () => {
+  //  console.log(posts.filter(item => item.likes.likedBy === ))
+  console.log(posts.map(item => item.likes.likedBy))
+   
+  }
 
   return (
     <>
@@ -79,6 +90,8 @@ export const Profile = () => {
           </div>
         )}
       </div>
+      <button onClick={postHandler}>Posts</button>
+      <button onClick={postLikeHandler}>Likes</button>
       <div className=" ml-10 mt-3 ">
         <div>
           {updatePost
