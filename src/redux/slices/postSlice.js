@@ -64,8 +64,7 @@ export const createPost = createAsyncThunk("/post/create", async (data, thunkAPI
       export const editPost = createAsyncThunk("/post/edit", async (data, thunkAPI) => {
           try {
             const { token, text, postId } = data;
-            console.log(postId)
-            console.log(token)
+            console.log(text)
             const postData = JSON.stringify(text)
             const res = await axios.post(
               `/api/posts/edit/${postId}`,
@@ -77,7 +76,7 @@ export const createPost = createAsyncThunk("/post/create", async (data, thunkAPI
               }
             );
             console.log(res.data)
-            return res.data;
+            return res.data.posts;
           } catch (error) {
             thunkAPI.rejectWithValue(error);
           }
@@ -151,7 +150,6 @@ export const postSlice = createSlice({
     [editPost.fulfilled]: (state, action) => {
         state.loading = false;
         state.error = null;
-        console.log(action.payload)
         state.posts = action.payload
     },
     [editPost.rejected]: (state, action) => {

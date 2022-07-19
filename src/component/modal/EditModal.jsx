@@ -6,7 +6,7 @@ import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
 import TextareaAutosize from "@mui/material/TextareaAutosize";
 import { height } from "@mui/system";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchPost } from "../../redux/slices/postSlice";
+import { editPost, fetchPost } from "../../redux/slices/postSlice";
 
 const style = {
   position: "absolute",
@@ -25,17 +25,30 @@ export const EditModal = ({ _id }) => {
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   const [filterPost, setFilterPost] = useState("");
+  const [ text, setText ] = useState(filterPost);
+  const dispatch = useDispatch();
 
   const { posts } = useSelector((state) => state.post);
+  const { encodedToken } = useSelector((state) => state.auth);
   let filterPostById = posts?.filter((item) => item._id === _id);
 
   const clickHandler = () => {
     setFilterPost(filterPostById[0].content);
   };
+  const editHandler = () => {
+    dispatch(editPost({ token: encodedToken, postId: _id, text: text}));
+    handleClose();
+  };
+
+  
+  const openModel = () => {
+    // dispatch(fetchPost());
+    handleOpen();
+  }
 
   return (
     <div className="relative ">
-      <button onClick={handleOpen}>
+      <button onClick={openModel}>
         {" "}
         <EditOutlinedIcon onClick={clickHandler} />
       </button>
@@ -49,6 +62,7 @@ export const EditModal = ({ _id }) => {
           <h1>Edit Posts</h1>
           <Typography id="keep-mounted-modal-description">
             <TextareaAutosize
+              onChange={(e) => setText(e.target.value)}
               maxRows={20}
               className="p-2 h-auto w-auto"
               aria-label="maximum height"
@@ -58,6 +72,9 @@ export const EditModal = ({ _id }) => {
             />
             <div>
               <button onClick={handleClose}>Close</button>
+            </div>
+            <div>
+              <button onClick={editHandler}>Save</button>
             </div>
           </Typography>
         </Box>
