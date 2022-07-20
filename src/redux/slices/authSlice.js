@@ -2,6 +2,15 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import { toast } from "react-toastify";
 
+export const getAllUsers = createAsyncThunk("api/users", async (thunkAPI) => {
+  try {
+    const {data} = await axios.get('api/users')
+    return data.users;
+  }
+  catch(error){
+    thunkAPI.rejectWithValue(error)
+  }
+})
 export const login = createAsyncThunk("auth/login", async (userData) => {
   const userDetail = JSON.stringify(userData);
   const { data } = await axios.post("/api/auth/login", userDetail);
@@ -29,12 +38,14 @@ export const signUp = createAsyncThunk("auth/signup", async (data, thunkAPI) => 
     thunkAPI.rejectWithValue(error);
   }
 });
+
 export const authSlice = createSlice({
   name: "auth",
   initialState: {
     isAuthenticated: false,
     loading: false,
     error: null,
+    allUsers: [],
     user: localStorage.getItem("user")
     ? JSON.parse(localStorage.getItem("user"))
     : null,
@@ -109,6 +120,19 @@ export const authSlice = createSlice({
       console.log(action)
       state.error = action.error;
       state.encodedToken = null;
+    },
+    [getAllUsers.pending]: (state) => {
+      state.allUsers = null;
+      state.error = null;
+    },
+    [getAllUsers.fulfilled]: (state, action) => {
+      state.allUsers = action.payload;
+      state.error = null;
+      
+    }, 
+    [getAllUsers.rejected]: (state, action) => {
+      state.allUsers = null;
+      state.error = action.error;
     },
   },
 });

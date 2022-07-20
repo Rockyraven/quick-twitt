@@ -18,7 +18,7 @@ import {
 } from "../../redux/slices/bookmarkSlice";
 import { deletePost, editPost, likePost } from "../../redux/slices/postSlice";
 import { EditModal } from "../modal/EditModal";
-import { getCommentOnPost, postComment } from "../../redux/slices/commentSlice";
+import { followPost, getCommentOnPost, postComment } from "../../redux/slices/commentSlice";
 import { Comment } from "../comment/Comment";
 
 export const Posts = ({
@@ -35,13 +35,22 @@ export const Posts = ({
   const { bookmarks } = useSelector((state) => state.bookmark);
   const { commentsList } = useSelector((state) => state.comment);
   const [updateComment, setUpdateComment] = useState('');
+  const [ isLiked, setIsLiked ] = useState(false);
 
   const addToBookmarkHandler = () => {
     dispatch(addToBookmark({ token: encodedToken, postId: _id }));
   };
+
   const likeHandler = () => {
     dispatch(likePost({ token: encodedToken, postId: _id }));
+    setIsLiked(!isLiked)
   };
+
+  const disLikeHandler = () => {
+    setIsLiked(!isLiked)
+  
+  }
+
   const deleteBookmarkHandler = () => {
     dispatch(deleteBookmarkPost({ token: encodedToken, postId: _id }));
   };
@@ -49,6 +58,8 @@ export const Posts = ({
   const deletePostHandler = () => {
     dispatch(deletePost({ token: encodedToken, postId: _id }));
   };
+
+ 
 
 
   const commentPostHandler = () => {
@@ -100,10 +111,16 @@ export const Posts = ({
       </div>
       <div className="post-content">{content}</div>
       <div className="gap-2 flex ml-2 mt-3">
+        {
+          isLiked?
+          <FavoriteOutlinedIcon onClick={disLikeHandler}/> :
+        
         <FavoriteBorderIcon
           className="hover:opacity-75 cursor disabled:opacity-50"
           onClick={likeHandler}
+
         />
+}
 
         <BookmarkBorderOutlinedIcon
           className="hover:opacity-75 disabled:cursor-not-allowed disabled:opacity-50"

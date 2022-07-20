@@ -40,6 +40,8 @@ export const Profile = () => {
     );
   };
 
+  var userPost = posts?.filter((item) => item.username === user.username);
+
   let enableStyle = {
     color: "var(--primary-color)",
     textDecoration: "none",
@@ -89,7 +91,7 @@ export const Profile = () => {
                   <p>Following</p>
                 </div>
                 <div className="flex flex-col items-center">
-                  <p className="font-bold">0</p>
+                  <p className="font-bold">{userPost?.length}</p>
                   <p>Posts</p>
                 </div>
                 <div className="flex flex-col items-center">

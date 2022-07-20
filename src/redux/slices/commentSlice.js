@@ -37,12 +37,32 @@ export const postComment = createAsyncThunk("/post/comment", async(data, thunkAP
     }
 })
 
+export const followPost = createAsyncThunk("follow/post", async(data, thunkAPI) => {
+    try {
+        const { token, followUserId } = data;
+        const res = await axios.post(
+            `/api/users/follow/${followUserId}`,
+            {},
+            {
+                headers: {
+                    authorization: token,
+                },
+            }
+        );
+        console.log(res)
+    }
+    catch(error){
+        thunkAPI.rejectWithValue(error)
+    }
+})
+
 export const commentSlice = createSlice({
     name: "comment",
     initialState: {
         loading: false,
         error: null,
-        commentsList: null
+        commentsList: null,
+        follow: null
     },
     reducers: {},
     extraReducers: {
@@ -75,6 +95,21 @@ export const commentSlice = createSlice({
             state.loading = true;
             state.error = action.error;
             state.commentsList = null;
+        },
+        [followPost.pending]: (state) => {
+            state.loading = true;
+            state.error = null;
+            state.follow = null;
+        },
+        [followPost.fulfilled]: (state, action) => {
+            state.loading = false;
+            state.error = null;
+            state.follow = action.payload;
+        },
+        [followPost.rejected]: (state, action) => {
+            state.loading = true;
+            state.error = action.error;
+            state.follow = null;
         }
     }
 })
