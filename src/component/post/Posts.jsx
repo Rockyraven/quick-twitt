@@ -7,6 +7,7 @@ import BookmarkBorderOutlinedIcon from "@mui/icons-material/BookmarkBorderOutlin
 import BookmarkOutlinedIcon from "@mui/icons-material/BookmarkOutlined";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import FavoriteOutlinedIcon from "@mui/icons-material/FavoriteOutlined";
+import ModeCommentOutlinedIcon from "@mui/icons-material/ModeCommentOutlined";
 import SendOutlinedIcon from "@mui/icons-material/SendOutlined";
 import { useState } from "react";
 import DeleteIcon from "@mui/icons-material/Delete";
@@ -17,6 +18,8 @@ import {
 } from "../../redux/slices/bookmarkSlice";
 import { deletePost, editPost, likePost } from "../../redux/slices/postSlice";
 import { EditModal } from "../modal/EditModal";
+import { followPost, getCommentOnPost, postComment } from "../../redux/slices/commentSlice";
+import { Comment } from "../comment/Comment";
 
 export const Posts = ({
   content = "",
@@ -30,28 +33,53 @@ export const Posts = ({
   const { encodedToken, user } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
   const { bookmarks } = useSelector((state) => state.bookmark);
-  const [isbookmark, setIsBookmark] = useState(false);
-  const [editModalOn, setEditModalOn] = useState(false);
+  const { commentsList } = useSelector((state) => state.comment);
+  const [updateComment, setUpdateComment] = useState('');
+  const [ isLiked, setIsLiked ] = useState(false);
 
   const addToBookmarkHandler = () => {
     dispatch(addToBookmark({ token: encodedToken, postId: _id }));
   };
+
   const likeHandler = () => {
     dispatch(likePost({ token: encodedToken, postId: _id }));
+    setIsLiked(!isLiked)
   };
+
+  const disLikeHandler = () => {
+    setIsLiked(!isLiked)
+  
+  }
+
   const deleteBookmarkHandler = () => {
     dispatch(deleteBookmarkPost({ token: encodedToken, postId: _id }));
   };
-  const editHandler = () => {
-    dispatch(editPost({ token: encodedToken, postId: _id }));
-  };
-  
+
   const deletePostHandler = () => {
     dispatch(deletePost({ token: encodedToken, postId: _id }));
-    console.log("clicked..")
+  };
+
+ 
+
+
+  const commentPostHandler = () => {
+        dispatch(postComment({ encodedToken, postId: _id, updateComment }));
+        setUpdateComment("");
+        // toast.success("Post created successfully");
   };
 
   const [isTooltipVisible, setIsTooltipVisible] = useState("hidden");
+  const [isCommentVisible, setIsCommentVisible] = useState("none");
+
+  const commentHandler = () => {
+    dispatch(getCommentOnPost({ token: encodedToken, postId: _id }));
+    if (isCommentVisible === "none") {
+      setIsCommentVisible("block");
+    } else {
+      setIsCommentVisible("none");
+    }
+  };
+
   const tooltipHandler = (_id) => {
     isTooltipVisible === "hidden"
       ? setIsTooltipVisible((prev) => "visible")
@@ -83,25 +111,59 @@ export const Posts = ({
       </div>
       <div className="post-content">{content}</div>
       <div className="gap-2 flex ml-2 mt-3">
-        <FavoriteBorderIcon  />
+        {
+          isLiked?
+          <FavoriteOutlinedIcon onClick={disLikeHandler}/> :
+        
+        <FavoriteBorderIcon
+          className="hover:opacity-75 cursor disabled:opacity-50"
+          onClick={likeHandler}
 
-        <BookmarkBorderOutlinedIcon onClick={addToBookmarkHandler} />
-        <button
+        />
+}
+
+        <BookmarkBorderOutlinedIcon
           className="hover:opacity-75 disabled:cursor-not-allowed disabled:opacity-50"
-        >
-          <EditModal _id = {_id} />
+          onClick={addToBookmarkHandler}
+        />
+        <button className="hover:opacity-75 disabled:cursor-not-allowed disabled:opacity-50">
+          <EditModal _id={_id} />
+        </button>
+        <button className="hover:opacity-75 disabled:cursor-not-allowed disabled:opacity-50">
+          <ModeCommentOutlinedIcon onClick={commentHandler} _id={_id} />
         </button>
       </div>
-      <div className="post flex  mt-5">
-        <img src={profile} alt="userphoto" />
-        <input
-          placeholder="Post your reply..."
-          className="rounded pr-8 pl-4 ml-4 w-full h-12  dark:border-slate-400 border border-text-slate-800 outline-none "
-          type="text"
-        ></input>
-        <button className="dark:disabled:text-slate-400 disabled:text-slate-700 text-blue-500 -ml-10">
-          <SendOutlinedIcon />
-        </button>
+      <div
+        className="post flex  h-auto w-15   mt-5"
+        style={{ display: isCommentVisible }}
+      >
+
+        <div className=" flex">
+          <img src={userphoto} alt="userphoto" />
+        </div>
+        <div>
+          <input
+            onInput={(e) => setUpdateComment(e.target.value)}
+            value={updateComment}
+            placeholder="Post your reply..."
+            className="rounded pr-8 pl-4 ml-4 w-11/12 h-12  dark:border-slate-400 border border-text-slate-800 outline-none "
+            type="text"
+          ></input>
+          <button className="dark:disabled:text-slate-400 disabled:text-slate-700 text-blue-500 -ml-10">
+            <SendOutlinedIcon onClick={commentPostHandler}/>
+          </button>
+        </div>
+        {commentsList?.map((item) => (
+          <Comment
+            key={item._id}
+            firstName={item.firstName}
+            lastName={item.lastName}
+            username={item.username}
+            userphoto={item.userphoto}
+            text={item.text}
+            _id={item._id}
+          />
+        ))}
       </div>
     </div>
   );

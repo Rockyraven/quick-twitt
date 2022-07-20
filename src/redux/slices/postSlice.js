@@ -37,8 +37,7 @@ export const createPost = createAsyncThunk("/post/create", async (data, thunkAPI
           },
         }
         );
-        console.log(res.data.posts.map(item => item.likes.likedBy));
-        return res.data;
+        return res.data.posts;
       } catch (error) {
         thunkAPI.rejectWithValue(error);
       }
@@ -65,8 +64,7 @@ export const createPost = createAsyncThunk("/post/create", async (data, thunkAPI
       export const editPost = createAsyncThunk("/post/edit", async (data, thunkAPI) => {
           try {
             const { token, text, postId } = data;
-            console.log(postId)
-            console.log(token)
+            console.log(text)
             const postData = JSON.stringify(text)
             const res = await axios.post(
               `/api/posts/edit/${postId}`,
@@ -78,7 +76,7 @@ export const createPost = createAsyncThunk("/post/create", async (data, thunkAPI
               }
             );
             console.log(res.data)
-            return res.data;
+            return res.data.posts;
           } catch (error) {
             thunkAPI.rejectWithValue(error);
           }
@@ -109,7 +107,6 @@ export const postSlice = createSlice({
   name: "post",
   initialState: {
     posts: [],
-    likePosts:[],
     loading: false,
     error: null,
   },
@@ -153,7 +150,6 @@ export const postSlice = createSlice({
     [editPost.fulfilled]: (state, action) => {
         state.loading = false;
         state.error = null;
-        console.log(action.payload)
         state.posts = action.payload
     },
     [editPost.rejected]: (state, action) => {
@@ -168,7 +164,6 @@ export const postSlice = createSlice({
     },
     [deletePost.fulfilled]: (state, action) => {
       state.loading = false;
-      console.log(action.payload);
       state.posts = action.payload;
       state.error = null;
     },
@@ -179,37 +174,29 @@ export const postSlice = createSlice({
     },
     [likePost.pending]: (state) => {
       state.loading = true;
-      state.likePosts = null;
       state.error = null;
     },
     [likePost.fulfilled]: (state, action) => {
       state.loading = false;
-      state.likePosts = action.payload;
-      console.log(state.payload);
       state.posts = action.payload;
       state.error = null;
     },
     [likePost.rejected]: (state, action) => {
       state.loading = true;
       state.error = action.error;
-      state.likePosts = null;
     },
     [disLikePost.pending]: (state) => {
       state.loading = true;
-      state.likePosts = null;
       state.error = null;
     },
     [disLikePost.fulfilled]: (state, action) => {
       state.loading = false;
-      state.likePosts = action.payload;
-      console.log(state.payload);
       state.posts = action.payload;
       state.error = null;
     },
     [disLikePost.rejected]: (state, action) => {
       state.loading = true;
       state.error = action.error;
-      state.likePosts = null;
     }
 
   },

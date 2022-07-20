@@ -36,18 +36,6 @@ export const posts = [
           downvotedBy: [],
         },
       },
-      {
-        _id: uuid(),
-        firstName: "Tanay",
-        lastName: "Pratap",
-        userphoto: tanay,
-        username: "tanay@123",
-        text: "At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque ",
-        votes: {
-          upvotedBy: [],
-          downvotedBy: [],
-        },
-      },
     ],
   },
   {
@@ -66,18 +54,6 @@ export const posts = [
     createdAt: formatDate(),
     updatedAt: formatDate(),
     comments: [
-      {
-        _id: uuid(),
-        firstName: "Elon",
-        lastName: "Mask",
-        userphoto: elon,
-        username: "elon_mask",
-        text: "At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque ",
-        votes: {
-          upvotedBy: [],
-          downvotedBy: [],
-        },
-      },
       {
         _id: uuid(),
         firstName: "Elon",
@@ -114,15 +90,6 @@ export const posts = [
         userphoto: elon,
         username: "shubhamsoni",
         text: "Interesting",
-        votes: {
-          upvotedBy: [],
-          downvotedBy: [],
-        },
-      },
-      {
-        _id: uuid(),
-        username: "sohamshah",
-        text: "Wow!",
         votes: {
           upvotedBy: [],
           downvotedBy: [],
