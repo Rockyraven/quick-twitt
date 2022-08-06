@@ -53,7 +53,6 @@ export const Signup = () => {
   };
   const signupHandler = () => {
     if (validateData()) {
-      console.log("Workin..");
       dispatch(signUp(dataForm));
       navigate("/");
     }

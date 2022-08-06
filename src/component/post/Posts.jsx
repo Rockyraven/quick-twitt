@@ -16,9 +16,13 @@ import {
   addToBookmark,
   deleteBookmarkPost,
 } from "../../redux/slices/bookmarkSlice";
-import { deletePost, editPost, likePost } from "../../redux/slices/postSlice";
+import { deletePost, disLikePost, editPost, likePost } from "../../redux/slices/postSlice";
 import { EditModal } from "../modal/EditModal";
-import { followPost, getCommentOnPost, postComment } from "../../redux/slices/commentSlice";
+import {
+  followPost,
+  getCommentOnPost,
+  postComment,
+} from "../../redux/slices/commentSlice";
 import { Comment } from "../comment/Comment";
 
 export const Posts = ({
@@ -34,8 +38,9 @@ export const Posts = ({
   const dispatch = useDispatch();
   const { bookmarks } = useSelector((state) => state.bookmark);
   const { commentsList } = useSelector((state) => state.comment);
-  const [updateComment, setUpdateComment] = useState('');
-  const [ isLiked, setIsLiked ] = useState(false);
+  const [updateComment, setUpdateComment] = useState("");
+  const [isLiked, setIsLiked] = useState(false);
+  const [ isBookmark, setisBookmarked ] = useState(false);
 
   const addToBookmarkHandler = () => {
     dispatch(addToBookmark({ token: encodedToken, postId: _id }));
@@ -43,13 +48,13 @@ export const Posts = ({
 
   const likeHandler = () => {
     dispatch(likePost({ token: encodedToken, postId: _id }));
-    setIsLiked(!isLiked)
+    setIsLiked(!isLiked);
   };
-
-  const disLikeHandler = () => {
-    setIsLiked(!isLiked)
   
-  }
+  const disLikeHandler = () => {
+    dispatch(disLikePost({ token: encodedToken, postId: _id }));
+    setIsLiked(!isLiked);
+  };
 
   const deleteBookmarkHandler = () => {
     dispatch(deleteBookmarkPost({ token: encodedToken, postId: _id }));
@@ -59,14 +64,15 @@ export const Posts = ({
     dispatch(deletePost({ token: encodedToken, postId: _id }));
   };
 
- 
-
-
   const commentPostHandler = () => {
-        dispatch(postComment({ encodedToken, postId: _id, updateComment }));
-        setUpdateComment("");
-        // toast.success("Post created successfully");
+    dispatch(postComment({ encodedToken, postId: _id, updateComment }));
+    setUpdateComment("");
   };
+
+  useEffect(() => {
+    setisBookmarked(bookmarks?.some((id) => id === _id))
+  }, [bookmarks]);
+
 
   const [isTooltipVisible, setIsTooltipVisible] = useState("hidden");
   const [isCommentVisible, setIsCommentVisible] = useState("none");
@@ -97,38 +103,56 @@ export const Posts = ({
           <MoreVertOutlinedIcon onClick={tooltipHandler} />
         </button>
         <div
-          className={`border rounded-sm absolute right-2 bg-white ${isTooltipVisible}`}
+          className={` border rounded-sm absolute right-2 bg-white ${isTooltipVisible}`}
         >
-          <div
-            className=" absolute bg-red-400 text-white flex m-1 border-b gap-2 hover:bg-slate-200 cursor-pointer rounded-sm p-1.5 top-2 right-5"
-            onClick={deletePostHandler}
-          >
-            <h1 className="flex">
+          {user.username === username ? 
+          <div className=" absolute bg-red-400 text-white   m-1 border-b gap-2  cursor-pointer rounded-sm p-2 top-2 right-5">
+            <button
+              onClick={deletePostHandler}
+              className="flex hover:bg-slate-200 m-1"
+            >
               Delete <DeleteIcon />
-            </h1>
-          </div>
+            </button>
+            <div>
+              <button className="hover:opacity-75 disabled:cursor-not-allowed disabled:opacity-50 flex hover:bg-slate-200 m-1">
+               Edit <EditModal _id={_id} />
+              </button>
+            </div>
+          </div> :
+          <div className=" absolute bg-red-400 text-white   m-1 border-b gap-2  cursor-pointer rounded-sm p-1 top-2 right-5">
+            <button
+              className="flex hover:bg-slate-200 m-1"
+            >
+              Follow
+            </button>
+            </div>
+            }
         </div>
       </div>
       <div className="post-content">{content}</div>
       <div className="gap-2 flex ml-2 mt-3">
-        {
-          isLiked?
-          <FavoriteOutlinedIcon onClick={disLikeHandler}/> :
-        
-        <FavoriteBorderIcon
+        {isLiked ? (
+          <FavoriteOutlinedIcon 
           className="hover:opacity-75 cursor disabled:opacity-50"
-          onClick={likeHandler}
-
-        />
-}
-
+          onClick={disLikeHandler} />
+        ) : (
+          <FavoriteBorderIcon
+            className="hover:opacity-75 cursor disabled:opacity-50"
+            onClick={likeHandler}
+          />
+        )}
+        
+          {!isBookmark && 
         <BookmarkBorderOutlinedIcon
           className="hover:opacity-75 disabled:cursor-not-allowed disabled:opacity-50"
           onClick={addToBookmarkHandler}
-        />
-        <button className="hover:opacity-75 disabled:cursor-not-allowed disabled:opacity-50">
-          <EditModal _id={_id} />
-        </button>
+        /> }
+          {isBookmark && 
+        <BookmarkOutlinedIcon
+          className="hover:opacity-75 disabled:cursor-not-allowed disabled:opacity-50"
+          onClick={addToBookmarkHandler}
+        /> }
+
         <button className="hover:opacity-75 disabled:cursor-not-allowed disabled:opacity-50">
           <ModeCommentOutlinedIcon onClick={commentHandler} _id={_id} />
         </button>
@@ -137,7 +161,6 @@ export const Posts = ({
         className="post flex  h-auto w-15   mt-5"
         style={{ display: isCommentVisible }}
       >
-
         <div className=" flex">
           <img src={userphoto} alt="userphoto" />
         </div>
@@ -150,7 +173,7 @@ export const Posts = ({
             type="text"
           ></input>
           <button className="dark:disabled:text-slate-400 disabled:text-slate-700 text-blue-500 -ml-10">
-            <SendOutlinedIcon onClick={commentPostHandler}/>
+            <SendOutlinedIcon onClick={commentPostHandler} />
           </button>
         </div>
         {commentsList?.map((item) => (

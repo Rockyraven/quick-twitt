@@ -113,7 +113,6 @@ export const Profile = () => {
         <hr />
         <button
         style={{isActive: "blue", color: "red"}}
-        //  style={({ isActive }) => (isActive ? enableStyle : disabledStyle)}
           className="inline-flex text-lg font-semibold text-black  border-0 py-1 px-20  focus:outline-none hover:border-b-4  flex m-auto ml-20 flex flex-col items-center mt-4" 
           onClick={postHandler}>Posts</button>
         <button  className="inline-flex text-lg font-semibold text-black  border-0 py-1 px-20  focus:outline-none hover:border-b-4  flex m-auto ml-20 flex flex-col items-center mt-4" onClick={postLikeHandler}>Likes</button>

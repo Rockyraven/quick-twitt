@@ -9,7 +9,7 @@ import { Sidebaar } from "../../component";
 export const LoginPage = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const { loading, error, isAuthenticated, encodedToken } = useSelector(
+  const { error, isAuthenticated } = useSelector(
     (state) => state.auth
   );
   const dispatch = useDispatch();
