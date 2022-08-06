@@ -40,10 +40,7 @@ export const Posts = ({
   const { commentsList } = useSelector((state) => state.comment);
   const [updateComment, setUpdateComment] = useState("");
   const [isLiked, setIsLiked] = useState(false);
-  const [ isBookmark, setisBookmarked ] = useState(false)
-
-  console.log(bookmarks);
-  // console.log(user)
+  const [ isBookmark, setisBookmarked ] = useState(false);
 
   const addToBookmarkHandler = () => {
     dispatch(addToBookmark({ token: encodedToken, postId: _id }));
@@ -70,7 +67,6 @@ export const Posts = ({
   const commentPostHandler = () => {
     dispatch(postComment({ encodedToken, postId: _id, updateComment }));
     setUpdateComment("");
-    // toast.success("Post created successfully");
   };
 
   useEffect(() => {
@@ -135,7 +131,7 @@ export const Posts = ({
       </div>
       <div className="post-content">{content}</div>
       <div className="gap-2 flex ml-2 mt-3">
-        {/* {isLiked ? (
+        {isLiked ? (
           <FavoriteOutlinedIcon 
           className="hover:opacity-75 cursor disabled:opacity-50"
           onClick={disLikeHandler} />
@@ -144,14 +140,8 @@ export const Posts = ({
             className="hover:opacity-75 cursor disabled:opacity-50"
             onClick={likeHandler}
           />
-        )} */}
-          <FavoriteOutlinedIcon 
-          className="hover:opacity-75 cursor disabled:opacity-50"
-          onClick={disLikeHandler} />
-           <FavoriteBorderIcon
-            className="hover:opacity-75 cursor disabled:opacity-50"
-            onClick={likeHandler}
-          />
+        )}
+        
           {!isBookmark && 
         <BookmarkBorderOutlinedIcon
           className="hover:opacity-75 disabled:cursor-not-allowed disabled:opacity-50"

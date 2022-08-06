@@ -37,7 +37,7 @@ export const HomePage = () => {
         ) : (
           <div>
             <CreatePost />
-            <h1 className="ml-20  mt-3">Your Posts</h1>
+            <h1 className="ml-20 mt-3 text-lg font-medium">Your Posts</h1>
             {updatePost?.map((item) => (
               <Posts
                 key={item._id}
