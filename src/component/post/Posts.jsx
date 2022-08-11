@@ -92,7 +92,7 @@ export const Posts = ({
       : setIsTooltipVisible((prev) => "hidden");
   };
   return (
-    <div className="relative fetch-post ml-20 border-gray-500 mt-3 gap-2 align-center p-4">
+    <div className="relative fetch-post ml-20 border-gray-500 bg-white mt-3 gap-2 align-center p-4">
       <div className=" post flex pl-3">
         <img src={userphoto} alt="userphoto" />
         <p className="text-lg font-semibold">

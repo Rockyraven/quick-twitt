@@ -25,7 +25,7 @@ export const CreatePost = ({}) => {
 
 
   return (
-    <div className="create-post ml-20 flex mt-3 relative">
+    <div className="create-post ml-20 flex mt-3 bg-white relative">
     <img src={user.userphoto ? user.userphoto : userProfile} alt="" className="h-20 w-20" />
     <div className="input-box">
       <input type="text w-full" value={text} onInput={e => setText(e.target.value)} />

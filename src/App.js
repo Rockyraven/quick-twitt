@@ -23,6 +23,7 @@ export const App = () => {
       />
       <ToastContainer />
       <Navbar />
+      <div className="bg-indigo-50">
       <Routes>
         <Route path="/login" element={<LoginPage />} />
         <Route path="/signup" element={<Signup />} />
@@ -33,6 +34,7 @@ export const App = () => {
           <Route path='/explore' element={<Explore/>} />
         </Route>
       </Routes>
+      </div>
     </>
   );
 };
