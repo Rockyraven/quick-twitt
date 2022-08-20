@@ -19,12 +19,12 @@ export const login = createAsyncThunk("auth/login", async (userData) => {
 
 export const signUp = createAsyncThunk("auth/signup", async (data, thunkAPI) => {
   try {
-   const { firstName, lastName, userName, userphoto, password1 } = data
-   console.log(userName)
+   const { firstName, lastName, username, userphoto, password1 } = data
+   console.log(username)
     const res = await axios.post(
       `/api/auth/signup`,
       {
-        username: userName,
+        username: username,
         firstName: firstName,
         lastName: lastName,
         userphoto: userphoto,
@@ -32,8 +32,10 @@ export const signUp = createAsyncThunk("auth/signup", async (data, thunkAPI) => 
       },
      
     );
+    console.log(res.data);
     return res.data;
   } catch (error) {
+    console.log(error);
     thunkAPI.rejectWithValue(error);
   }
 });

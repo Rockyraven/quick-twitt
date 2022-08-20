@@ -20,6 +20,7 @@ export const createPost = createAsyncThunk("/post/create", async (data, thunkAPI
           },
         }
       );
+      console.log(res.data.posts);
       return res.data.posts.reverse();
     } catch (error) {
       thunkAPI.rejectWithValue(error);

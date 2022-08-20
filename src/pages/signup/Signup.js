@@ -14,7 +14,6 @@ export const Signup = () => {
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  console.log(error)
 
   useEffect(() => {
     setPostError(error)

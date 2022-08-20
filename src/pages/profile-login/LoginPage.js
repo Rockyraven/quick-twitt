@@ -26,6 +26,10 @@ export const LoginPage = () => {
   }, [isAuthenticated, error, dispatch]);
 
   const loginHandler = (username, password) => {
+    if (isAuthenticated) {
+      navigate("/");
+      toast.success("LoggedIn successFully");
+    }
     dispatch(login({ username, password }));
   };
 
