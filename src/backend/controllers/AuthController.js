@@ -15,7 +15,7 @@ const sign = require("jwt-encode");
  * */
 
 export const signupHandler = function (schema, request) {
-  const { username, password1, ...rest } = JSON.parse(request.requestBody);
+  const { username, password, ...rest } = JSON.parse(request.requestBody);
   try {
     // check if username already exists
     const foundUser = schema.users.findBy({ username: username });
@@ -35,7 +35,7 @@ export const signupHandler = function (schema, request) {
       createdAt: formatDate(),
       updatedAt: formatDate(),
       username,
-      password1,
+      password,
       ...rest,
       followers: [],
       following: [],
@@ -66,8 +66,11 @@ export const signupHandler = function (schema, request) {
 
 export const loginHandler = function (schema, request) {
   const { username, password } = JSON.parse(request.requestBody);
+  console.log(username)
+  console.log(password);
   try {
     const foundUser = schema.users.findBy({ username: username });
+    console.log(foundUser);
     if (!foundUser) {
       return new Response(
         404,

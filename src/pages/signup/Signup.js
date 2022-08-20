@@ -23,7 +23,7 @@ export const Signup = () => {
     username: "",
     firstName: "",
     lastName: "",
-    password1: "",
+    password: "",
     password2: "",
   });
   useEffect(() => {
@@ -42,7 +42,8 @@ export const Signup = () => {
       dataForm.firstName === "" ||
       dataForm.lastName === "" ||
       dataForm.username === "" ||
-      dataForm.password1.length < 6
+      dataForm.password.length < 6 
+      // dataForm.password === dataForm.password2
     ) {
       dispatch(setError("Invalid Data "));
       return false;
@@ -50,6 +51,7 @@ export const Signup = () => {
 
     return true;
   };
+  console.log(dataForm);
   const signupHandler = () => {
     if (validateData()) {
       dispatch(signUp(dataForm));
@@ -127,13 +129,13 @@ export const Signup = () => {
               
               <input
                 type="password"
-                value={dataForm.password1}
+                value={dataForm.password}
                 className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
                 placeholder="Password"
                 onInput={(e) =>
                   setDataForm((prev) => ({
                     ...prev,
-                    password1: e.target.value,
+                    password: e.target.value,
                   }))
                 }
               />
