@@ -42,8 +42,7 @@ export const Signup = () => {
       dataForm.firstName === "" ||
       dataForm.lastName === "" ||
       dataForm.username === "" ||
-      dataForm.password.length < 6 
-      // dataForm.password === dataForm.password2
+      dataForm.password.length < 6  
     ) {
       dispatch(setError("Invalid Data "));
       return false;

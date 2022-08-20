@@ -14,14 +14,12 @@ export const getAllUsers = createAsyncThunk("api/users", async (thunkAPI) => {
 export const login = createAsyncThunk("auth/login", async (userData) => {
   const userDetail = JSON.stringify(userData);
   const { data } = await axios.post("/api/auth/login", userDetail);
-  console.log(data);
   return data;
 });
 
 export const signUp = createAsyncThunk("auth/signup", async (data, thunkAPI) => {
   try {
    const { firstName, lastName, username, userphoto, password } = data
-   console.log(username)
     const res = await axios.post(
       `/api/auth/signup`,
       {
@@ -33,7 +31,6 @@ export const signUp = createAsyncThunk("auth/signup", async (data, thunkAPI) => 
       },
      
     );
-    console.log(res.data);
     return res.data;
   } catch (error) {
     console.log(error);
@@ -120,7 +117,6 @@ export const authSlice = createSlice({
       state.isAuthenticated = false;
       state.user = null;
       state.loading = true;
-      console.log(action)
       state.error = action.error;
       state.encodedToken = null;
     },
