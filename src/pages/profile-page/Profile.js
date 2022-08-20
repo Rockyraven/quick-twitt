@@ -29,12 +29,12 @@ export const Profile = () => {
   }, []);
 
   const postHandler = () => {
-    setUpdatedPost(posts.filter((item) => item.username === user.username));
+    setUpdatedPost(posts?.filter((item) => item.username === user.username));
   };
 
   const postLikeHandler = () => {
     setUpdatedPost(
-      posts.filter((item) =>
+      posts?.filter((item) =>
         item.likes.likedBy.some((user) => user._id === user._id)
       )
     );

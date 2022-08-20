@@ -19,21 +19,21 @@ export const login = createAsyncThunk("auth/login", async (userData) => {
 
 export const signUp = createAsyncThunk("auth/signup", async (data, thunkAPI) => {
   try {
-   const { firstName, lastName, userName, userphoto, password1 } = data
-   console.log(userName)
+   const { firstName, lastName, username, userphoto, password } = data
     const res = await axios.post(
       `/api/auth/signup`,
       {
-        username: userName,
+        username: username,
         firstName: firstName,
         lastName: lastName,
         userphoto: userphoto,
-        password1: password1
+        password: password
       },
      
     );
     return res.data;
   } catch (error) {
+    console.log(error);
     thunkAPI.rejectWithValue(error);
   }
 });
@@ -93,6 +93,7 @@ export const authSlice = createSlice({
       state.isAuthenticated = false;
       state.user = null;
       state.loading = true;
+      console.log({action});
       state.error = action.error;
       state.encodedToken = null;
     },
@@ -116,7 +117,6 @@ export const authSlice = createSlice({
       state.isAuthenticated = false;
       state.user = null;
       state.loading = true;
-      console.log(action)
       state.error = action.error;
       state.encodedToken = null;
     },

@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { profile } from "../../assets";
+import { profile, userProfile } from "../../assets";
 import "./posts.css";
 import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
 import MoreVertOutlinedIcon from "@mui/icons-material/MoreVertOutlined";
@@ -35,6 +35,7 @@ export const Posts = ({
   _id,
 }) => {
   const { encodedToken, user } = useSelector((state) => state.auth);
+  const { posts, loading } = useSelector((state) => state.post);
   const dispatch = useDispatch();
   const { bookmarks } = useSelector((state) => state.bookmark);
   const { commentsList } = useSelector((state) => state.comment);
@@ -73,7 +74,6 @@ export const Posts = ({
     setisBookmarked(bookmarks?.some((id) => id === _id))
   }, [bookmarks]);
 
-
   const [isTooltipVisible, setIsTooltipVisible] = useState("hidden");
   const [isCommentVisible, setIsCommentVisible] = useState("none");
 
@@ -91,10 +91,18 @@ export const Posts = ({
       ? setIsTooltipVisible((prev) => "visible")
       : setIsTooltipVisible((prev) => "hidden");
   };
+
+  // useEffect(() => {
+  //   const post = posts?.find((post) => post._id === _id);
+  //   const liked = post.likes.likedBy.some((it) => it._id === user._id);
+  //   setIsLiked(liked);
+  //   console.log(post);
+  //   console.log(liked);
+  // }, [posts]);
   return (
-    <div className="relative fetch-post ml-20 border-gray-500 mt-3 gap-2 align-center p-4">
+    <div className="relative fetch-post ml-20 border-gray-500 bg-white mt-3 gap-2 align-center p-4">
       <div className=" post flex pl-3">
-        <img src={userphoto} alt="userphoto" />
+        <img src={user.userphoto ? user.userphoto : userProfile} alt="userphoto" />
         <p className="text-lg font-semibold">
           {firstName} {lastName}
         </p>
