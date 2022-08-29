@@ -1,4 +1,8 @@
 import React, { useEffect, useState } from "react";
+import "./homepage.css";
+import { useDispatch, useSelector } from "react-redux";
+import { createPost, fetchPost } from "../../redux/slices/postSlice";
+import { getAllUsers } from "../../redux/slices/userSlice";
 import {
   CreatePost,
   FollowCard,
@@ -6,14 +10,10 @@ import {
   Posts,
   Sidebaar,
 } from "../../component";
-import "./homepage.css";
-import { useDispatch, useSelector } from "react-redux";
-import { createPost, fetchPost } from "../../redux/slices/postSlice";
-import { getAllUsers } from "../../redux/slices/authSlice";
 
 export const HomePage = () => {
   const { posts, loading } = useSelector((state) => state.post);
-  const { allUsers,user } = useSelector((state) => state.auth);
+  const { allUsers } = useSelector((state) => state.user);
   const [updatePost, setUpdatedPost] = useState(null);
   const dispatch = useDispatch();
   useEffect(() => {

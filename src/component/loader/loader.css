@@ -5,6 +5,10 @@
     justify-content: center;
     align-items: center;
   }
+  .user-imag img{
+    height: 5rem;
+    width: 5rem;
+  }
   
   .loader {
     width: 60px;

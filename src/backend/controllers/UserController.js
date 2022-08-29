@@ -203,7 +203,6 @@ export const followUserHandler = function (schema, request) {
   const user = requiresAuth.call(this, request);
   const { followUserId } = request.params;
   const followUser = schema.users.findBy({ _id: followUserId }).attrs;
-  console.log(followUser)
   try {
     if (!user) {
       return new Response(
@@ -243,7 +242,8 @@ export const followUserHandler = function (schema, request) {
     return new Response(
       200,
       {},
-      { user: updatedUser, followUser: updatedFollowUser }
+      {users:this.db.users}
+      // { user: updatedUser, followUser: updatedFollowUser }
     );
   } catch (error) {
     return new Response(
@@ -308,7 +308,8 @@ export const unfollowUserHandler = function (schema, request) {
     return new Response(
       200,
       {},
-      { user: updatedUser, followUser: updatedFollowUser }
+      {users:this.db.users}
+      // { user: updatedUser, followUser: updatedFollowUser }
     );
   } catch (error) {
     return new Response(

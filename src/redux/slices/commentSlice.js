@@ -104,6 +104,7 @@ export const commentSlice = createSlice({
         [followPost.fulfilled]: (state, action) => {
             state.loading = false;
             state.error = null;
+            console.log(action.payload);
             state.follow = action.payload;
         },
         [followPost.rejected]: (state, action) => {
