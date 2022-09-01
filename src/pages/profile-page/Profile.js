@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+// import styles from "./profile.css";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import { logout } from "../../redux/slices/authSlice";
@@ -14,8 +15,6 @@ export const Profile = () => {
   const navigate = useNavigate();
   const { profileId } = useParams();
   const [ userProfile, setUserProfile ] = useState({});
-  console.log(user);
-
   
   const { posts, loading } = useSelector(
     (state) => state.post
@@ -38,7 +37,6 @@ export const Profile = () => {
     console.log(userProfile);
     setUserProfile(userProfile[0]);
   }, [profileId, allUsers]);
-  console.log(userProfile);
 
   const postHandler = () => {
     setUpdatedPost(posts?.filter((item) => item.username === user.username));

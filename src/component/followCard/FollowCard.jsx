@@ -29,7 +29,7 @@ export const FollowCard = ({
     <Link to={`/profile/${username}`} >
     <div className=" mt-1 gap-2 align-center p-4">
       <div className=" border-2 p-2 w-80 items-center gap-3 flex pl-3">
-        <div className=" ">
+        <div className=" user-imag">
           <img src={userphoto} alt="userphoto" />
         </div>
         <div>

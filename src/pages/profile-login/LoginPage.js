@@ -91,7 +91,7 @@ export const LoginPage = () => {
               </button>
               <button
                 type="submit"
-                onClick={()=>{setUsername("rockyraven#5213"); setPassword("adarshBalika123")}}
+                onClick={()=>{setUsername("rockyraven"); setPassword("adarshBalika123")}}
                 className="login group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-black bg-grey-1000 hover:bg-indigo-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                 
               >

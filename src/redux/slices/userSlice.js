@@ -4,8 +4,6 @@ import axios from "axios";
 export const getAllUsers = createAsyncThunk("api/users", async (thunkAPI) => {
     try {
       const {data} = await axios.get('api/users')
-      console.log(data.users);
-      
       return data.users;
     }
     catch(error){
@@ -25,7 +23,6 @@ export const userSlice = createSlice({
             state.error = null;
           },
           [getAllUsers.fulfilled]: (state, action) => {
-            console.log(action.payload);
             state.allUsers = action.payload;
             state.error = null;
             
