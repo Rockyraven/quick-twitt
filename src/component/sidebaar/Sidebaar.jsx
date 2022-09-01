@@ -5,8 +5,12 @@ import ExploreIcon from '@mui/icons-material/Explore';
 import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
 import PersonIcon from '@mui/icons-material/Person';
 import "./sidebaar.css";
+import { useSelector } from "react-redux";
 
 export const Sidebaar = () => {
+  const { user } = useSelector(
+    (state) => state.auth
+  );
   return (
     <div className="sidebaar-wrapper">
     <div className="sidebar-container wrapper">
@@ -28,7 +32,7 @@ export const Sidebaar = () => {
           <p className="sidebar-symbol">BookMark</p>
         </div>
       </Link>
-      <Link to="/profile">
+      <Link to={`/profile/${user.username}`}>
         <div className="sidebaar-icon">
           <PersonIcon sx={{fontSize: 30}} className='icon'/>
           <p className="sidebar-symbol">Profile</p>

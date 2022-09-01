@@ -102,7 +102,7 @@ export const Posts = ({
   return (
     <div className="relative fetch-post ml-20 border-gray-500 bg-white mt-3 gap-2 align-center p-4">
       <div className=" post flex pl-3">
-        <img src={user.userphoto ? user.userphoto : userProfile} alt="userphoto" />
+        <img src={userphoto} alt="userphoto" />
         <p className="text-lg font-semibold">
           {firstName} {lastName}
         </p>

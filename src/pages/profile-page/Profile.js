@@ -1,18 +1,22 @@
 import React, { useEffect, useState } from "react";
 // import styles from "./profile.css";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { logout } from "../../redux/slices/authSlice";
 import { Loader, Posts, Sidebaar } from "../../component";
 import { banner, profile, userProfile } from "../../assets";
 import { fetchPost } from "../../redux/slices/postSlice";
-import styles from './profile.css'
+import styles from "./profile.css";
 
 export const Profile = () => {
   const { user } = useSelector((state) => state.auth);
+  const { allUsers } = useSelector((state) => state.user);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { posts, loading, error, likePosts } = useSelector(
+  const { profileId } = useParams();
+  const [ userProfile, setUserProfile ] = useState({});
+  
+  const { posts, loading } = useSelector(
     (state) => state.post
   );
   const [updatePost, setUpdatedPost] = useState(null);
@@ -27,6 +31,12 @@ export const Profile = () => {
   useEffect(() => {
     postHandler();
   }, []);
+  
+  useEffect(() => {
+    const userProfile = allUsers?.filter((user) => user.username === profileId);
+    console.log(userProfile);
+    setUserProfile(userProfile[0]);
+  }, [profileId, allUsers]);
 
   const postHandler = () => {
     setUpdatedPost(posts?.filter((item) => item.username === user.username));
@@ -39,6 +49,9 @@ export const Profile = () => {
       )
     );
   };
+  var likedPosts = posts?.filter((item) =>
+  item.likes.likedBy.some((user) => user._id === user._id))
+  var myPosts = posts?.filter((item) => item.username === user.username);
 
   var userPost = posts?.filter((item) => item.username === user.username);
 
@@ -64,20 +77,20 @@ export const Profile = () => {
             <Loader />
           ) : (
             <div className="post-conatiner h-auto ml-20 mt-3 mb-10 ">
-              <img src={banner} alt="banner" className="img p-3 w-full h-70" />
+              <img src={userProfile.backgroundPhoto} alt="banner" className="img p-3 w-full h-70" />
               <div className=" profile-img justify-center">
                 <img
-                  src={user.userphoto ? user.userphoto : userProfile}
+                  src={userProfile.userphoto}
                   alt="ProfileImage"
                 />
               </div>
               <div className="profile-detail  p-3 leading-10">
                 <div>
                   <p className="text-xl font-bold">
-                    {user.firstName} {user.lastName}
+                    {userProfile.firstName} {userProfile.lastName}
                   </p>
-                  <p className="text-sm text-gray-600">{user.username}</p>
-                  <p className="text-lg">{user.bio}</p>
+                  <p className="text-sm text-gray-600">{userProfile.username}</p>
+                  <p className="text-lg">{userProfile.bio}</p>
                 </div>
                 <div className="ml-auto ">
                   <button className="inline-flex text-white bg-indigo-500 border-0 py-1 px-4 focus:outline-none hover:bg-indigo-600 rounded">
@@ -109,26 +122,34 @@ export const Profile = () => {
               </div>
             </div>
           )}
-       
-        <hr />
-        <button
-        style={{isActive: "blue", color: "red"}}
-          className="inline-flex text-lg font-semibold text-black  border-0 py-1 px-20  focus:outline-none hover:border-b-4  flex m-auto ml-20 flex flex-col items-center mt-4" 
-          onClick={postHandler}>Posts</button>
-        <button  className="inline-flex text-lg font-semibold text-black  border-0 py-1 px-20  focus:outline-none hover:border-b-4  flex m-auto ml-20 flex flex-col items-center mt-4" onClick={postLikeHandler}>Likes</button>
 
-        {updatePost?.map((item) => (
-          <Posts
-            key={item._id}
-            firstName={item.firstName}
-            lastName={item.lastName}
-            username={item.username}
-            userphoto={item.userphoto}
-            content={item.content}
-            _id={item._id}
-          />
-        ))}
-      </div>
+          <hr />
+          <button
+            style={{ isActive: "blue", color: "red" }}
+            className="inline-flex text-lg font-semibold text-black  border-0 py-1 px-20  focus:outline-none hover:border-b-4  flex m-auto ml-20 flex flex-col items-center mt-4"
+            onClick={postHandler}
+          >
+            Posts({myPosts?.length})
+          </button>
+          <button
+            className="inline-flex text-lg font-semibold text-black  border-0 py-1 px-20  focus:outline-none hover:border-b-4  flex m-auto ml-20 flex flex-col items-center mt-4"
+            onClick={postLikeHandler}
+          >
+            Likes({likedPosts?.length})
+          </button>
+
+          {updatePost?.map((item) => (
+            <Posts
+              key={item._id}
+              firstName={item.firstName}
+              lastName={item.lastName}
+              username={item.username}
+              userphoto={item.userphoto}
+              content={item.content}
+              _id={item._id}
+            />
+          ))}
+        </div>
       </div>
     </>
   );

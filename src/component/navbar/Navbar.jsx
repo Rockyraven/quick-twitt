@@ -18,7 +18,7 @@ export const Navbar = () => {
           
         </Link>
         <div className='login-link'>
-        {user? <Link to="/profile" className="login">
+        {user? <Link to={`/profile/${user.username}`} className="login">
           <PersonIcon className='symbol' sx={{fontSize: 30}}/>
           </Link> : <Link to="/login" className="login">
             <LoginIcon className='symbol' sx={{fontSize: 30}}/>
